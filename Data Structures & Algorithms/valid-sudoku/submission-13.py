@@ -1,0 +1,26 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxes = defaultdict(set)
+
+        for row in range(len(board)):
+            for col in range(len(board[row])):
+                if board[row][col] == ".":
+                    continue
+                
+                if board[row][col] in rows[row]:
+                    return False
+                elif board[row][col] in cols[col]:
+                    return False
+                elif board[row][col] in boxes[(row // 3, col //3)]:
+                    return False
+                
+                rows[row].add(board[row][col])
+                cols[col].add(board[row][col])
+                boxes[(row//3, col//3)].add(board[row][col])
+        
+        return True
+
+
+        
